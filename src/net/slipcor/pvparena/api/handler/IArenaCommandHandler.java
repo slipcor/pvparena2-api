@@ -1,7 +1,7 @@
-package net.slipcor.pvparena.api.handlers;
+package net.slipcor.pvparena.api.handler;
 
 import net.slipcor.pvparena.api.IArena;
-import net.slipcor.pvparena.api.ICommandTree;
+import net.slipcor.pvparena.api.command.ICommandTree;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;

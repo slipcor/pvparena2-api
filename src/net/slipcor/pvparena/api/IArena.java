@@ -1,12 +1,15 @@
 package net.slipcor.pvparena.api;
 
-import net.slipcor.pvparena.api.handlers.*;
+import net.slipcor.pvparena.api.handler.*;
 import net.slipcor.pvparena.api.loadables.*;
+import net.slipcor.pvparena.api.query.IQueryResult;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
+import java.util.List;
 import java.util.Set;
 
 public interface IArena {
@@ -21,6 +24,11 @@ public interface IArena {
      * @param mod the module to add
      */
     void addModule(final IArenaModule mod);
+
+    /**
+     * @return whether the arena allows for players to join during a battle in progress
+     */
+    boolean allowsJoinInBattle();
 
     /**
      * Call event when a player is exiting from an arena (by plugin)
@@ -187,11 +195,81 @@ public interface IArena {
     void playerLeave(final Player player, final String coord, final boolean silent, final boolean force);
 
     /**
+     * Query loadables for the arena end
+     *
+     * @return a list of {@link IQueryResult} indicating loadables that want to end the arena
+     */
+    List<IQueryResult> queryArenaEnd();
+
+    /**
+     * @return a list of {@link IQueryResult} indicating missing spawns
+     */
+    List<IQueryResult> queryMissingSpawns();
+
+    /**
+     * Query loadables for player cancellables
+     *
+     * @param player the {@link IArenaPlayer} that is causing the event
+     * @param event the cancellable event to hand over
+     *
+     * @return a list of {@link IQueryResult} indicating a cancellable event being cancelled
+     */
+    List<IQueryResult> queryPlayerCancellable(IArenaPlayer player, Cancellable event);
+
+    /**
+     * Query loadables for a player dying
+     *
+     * @param player the {@link IArenaPlayer} that is dying
+     *
+     * @return a list of {@link IQueryResult} - loadables that want to handle the death
+     */
+    List<IQueryResult> queryPlayerDeath(IArenaPlayer player);
+
+    /**
+     * Query loadables for a player joining an arena
+     *
+     * @param player the {@link IArenaPlayer} that is joining
+     * @param args the join sub-arguments
+     *
+     * @return a list of {@link IQueryResult} - loadables that want to handle the joining
+     */
+    List<IQueryResult> queryPlayerJoin(IArenaPlayer player, final String[] args);
+
+    /**
+     * Query loadables for player command handling
+     *
+     * @return a list of {@link IQueryResult} - loadables that want to handle this event actively
+     */
+    List<IQueryResult> queryPlayerCommand();
+
+    /**
+     * @return a list of {@link IQueryResult} indicating the arena not being ready to start
+     */
+    List<IQueryResult> queryReady();
+
+    /**
+     * @param name the spawn name to find
+     *
+     * @return a list of {@link IQueryResult} - loadables that know this spawn name
+     */
+    List<IQueryResult> querySpawnKnown(String name);
+
+    /**
+     * @return a list of {@link IQueryResult} - loadables that want to handle the arena start
+     */
+    List<IQueryResult> queryStart();
+
+    /**
      * Check if an arena is ready
      *
      * @return null if ok, error message otherwise
      */
     String ready();
+
+    /**
+     * Reload arena and loadable configs
+     */
+    void reloadConfigs();
 
     /**
      * Remove a player from the arena

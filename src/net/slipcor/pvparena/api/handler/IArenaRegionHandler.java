@@ -1,6 +1,6 @@
-package net.slipcor.pvparena.api.handlers;
+package net.slipcor.pvparena.api.handler;
 
-import net.slipcor.pvparena.api.loadables.IArenaRegion;
+import net.slipcor.pvparena.api.IArenaRegion;
 
 import java.util.Set;
 

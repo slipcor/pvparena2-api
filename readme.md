@@ -15,7 +15,7 @@ The API for the upcoming new rewritten version of PVP Arena v2.0
 
 ## Dependencies
 
-- Java 7
+- Java 8
 - Spigot 1.9.4
 
 ***
@@ -28,18 +28,32 @@ The API for the upcoming new rewritten version of PVP Arena v2.0
 
 ## Documentation
 
-- see the JavaDocs - feel fre to leave comments where they are wrong or lack
-
-***
+- see the JavaDocs - feel free to leave comments where they are wrong or lack information
 
 ## What are we doing here?
 
-- Discussing the API:
+Discussing the API:
 - what is missing?
 - what should be returning different things?
 - what should take different arguments?
 
-***
+## IQueryResult
+
+A new concept of ordering access and flow in the plugin might be the queries. 
+For example the plugin might call a 'queryPlayerJoin' to query the arena's goals, modules etc, 
+each one will be able to object to this joining going through, and each loadable will have the 
+possibility to claim ownership of the handling of this event, by attaching itself to the resulting list.
+ 
+Finally there will be a playerJoinPostHandle, offered to all loadables after no objections were issued.
+ 
+For PVP Arena v1.3 modders:
+
+- checkJoin becomes playerJoinCheck
+- commitJoin becomes playerJoinHandle
+- parseJoin becomes playerJoinPostHandle
+- specific Cancellable event handling will be grouped into a playerCancellable(Check/Handle/PostHandle)
+- several existing methods will be replaced by fitting new-system methods, please see the goal and module implementations!
+- some methods are removed and will be replaced by per-module or per-goal solutions
 
 ## Credits
 

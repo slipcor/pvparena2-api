@@ -1,4 +1,4 @@
-package net.slipcor.pvparena.api.handlers;
+package net.slipcor.pvparena.api.handler;
 
 import org.bukkit.entity.Player;
 

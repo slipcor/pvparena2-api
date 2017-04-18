@@ -1,4 +1,4 @@
-package net.slipcor.pvparena.api.handlers;
+package net.slipcor.pvparena.api.handler;
 
 import net.slipcor.pvparena.api.IArenaTeam;
 import net.slipcor.pvparena.api.loadables.IArenaModule;

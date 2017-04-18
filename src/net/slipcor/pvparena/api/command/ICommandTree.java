@@ -1,4 +1,4 @@
-package net.slipcor.pvparena.api;
+package net.slipcor.pvparena.api.command;
 
 public interface ICommandTree<T> {
     void define(final T[] args);

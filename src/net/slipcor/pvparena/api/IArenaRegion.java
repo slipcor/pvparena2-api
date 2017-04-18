@@ -1,4 +1,4 @@
-package net.slipcor.pvparena.api.loadables;
+package net.slipcor.pvparena.api;
 
 public interface IArenaRegion {
     /**
